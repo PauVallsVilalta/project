@@ -1,42 +1,8 @@
-from xml.dom import minidom
-mazo=[] #Lectura del archivo XML y creación de la lista de tuplas "Mazo"
-doc = minidom.parse("Cartas.xml") #Recorregut del fitxer Cartas.xml
-cartes = doc.getElementsByTagName("carta") #Afegir cada carta a la llista cartas
-for carta in cartes: #Recorrer totes les cartes i anar extreient valors
-    valor_real=carta.getElementsByTagName("valor")[0]
-    palo=carta.getElementsByTagName("palo")[0]
-    valor_juego=carta.getElementsByTagName("valor_juego")[0]
-    activa=carta.getElementsByTagName("activa")[0]
-    if palo.firstChild.data=="Oros": #Passar el pal de la carta a número de prioritat
-        prioridad=1
-    elif palo=="Copas":
-        prioridad=2
-    elif palo=="Espadas":
-        prioridad=3
-    elif palo=="Bastos":
-        prioridad=4
-    if activa.firstChild.data=="SI": #Si està activa, crear una tupla amb els valors que volem. Després, afegir la tupla completa a la llista mazo.
-        tupla=(int(valor_real.firstChild.data), prioridad, float(valor_juego.firstChild.data))
-        mazo.append(tupla)
-
 min_jug=2
 max_jug=8
 jugadors=[]
 abecedari=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "à", "á", "è", "é", "í", "ò", "ó", "ú", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "À", "Á", "È", "É", "Í", "Ò", "Ó", "Ú"]
-mode_joc=0 #Mode de Joc. [1=Jugador VS Jugador/2=Jugador VS Màquines]
-mode_ok=False
-while mode_ok==False:
-    print("***MENÚ PRINCIPAL:***\n" #Menú principal
-          "***ELEGEIX UN MODE DE JOC***\n"
-          "1. Jugador VS Jugador\n"
-          "2. Jugador VS Màquina")
-    mode_joc=input("Elecció: ")
-    if mode_joc=="1" or mode_joc=="2": #Elecció correcte del mode de joc.
-        mode_joc=int(mode_joc)
-        mode_ok=True
-    else:
-        print("Opció incorrecte!") #Validació d'entrada correcta.
-        mode_ok=False
+mode_joc=1 #Mode de Joc. [1=Jugador VS Jugador/2=Jugador VS Màquines]
 if mode_joc==1:
     num_jug = 0
     jugadors_ok=False
@@ -71,4 +37,3 @@ if mode_joc==1:
                     jugadors_ok=True
             elif num_jug==max_jug:
                 jugadors_ok=True
-print(jugadors)
